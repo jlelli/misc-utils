@@ -15,7 +15,7 @@ def main(argv):
     if guest not in macs:
         exit(1)
 
-    hosts = bash_command("nmap -sP 10.30.3.101-240")
+    hosts = bash_command("nmap -T4 -sP 10.30.3.101-240")
     arplist = bash_command("arp -n").split('\n')
 
     for arpline in arplist[:-1]:
