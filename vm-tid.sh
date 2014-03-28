@@ -1,6 +1,6 @@
 #! /bin/bash
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -lt 1 ]; then
     echo "usage: vm-tid [guest_name]"
     echo "valid guests are:"
     echo "guest1-debian-64"
@@ -12,7 +12,7 @@ VMNAME=$1
 VMM_ADDR=$2
 
 if [ "$#" == 2 ]; then
-    INFO=$(virsh --connect qemu://root@${VMM_ADDR}/system qemu-monitor-command ${VMNAME} --hmp info cpus)
+    INFO=$(virsh --connect qemu+ssh://root@${VMM_ADDR}/system qemu-monitor-command ${VMNAME} --hmp info cpus)
 else
     INFO=$(virsh --connect qemu:///system qemu-monitor-command ${VMNAME} --hmp info cpus)
 fi
