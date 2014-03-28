@@ -9,8 +9,13 @@ if [ "$#" -ne 1 ]; then
 fi
 
 VMNAME=$1
+VMM_ADDR=$2
 
-INFO=$(virsh --connect qemu:///system qemu-monitor-command ${VMNAME} --hmp info cpus)
+if [ "$#" == 2 ]; then
+    INFO=$(virsh --connect qemu://root@${VMM_ADDR}/system qemu-monitor-command ${VMNAME} --hmp info cpus)
+else
+    INFO=$(virsh --connect qemu:///system qemu-monitor-command ${VMNAME} --hmp info cpus)
+fi
 
 if [ $? -ne 0 ]; then
     echo 
